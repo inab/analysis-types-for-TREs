@@ -28,7 +28,9 @@ export default {
       path: "/five-safes-tes",
       pages: [
         {name: "Submitting to Five Safes TES", path: "/five-safes-tes/submitting-to-5s-tes"},
-        {name: "Five Safes TES executors", path: "/five-safes-tes/executors"},
+        {name: "Five Safes TES executors", path: "/five-safes-tes/executors-overview"},
+        {name: "↳ Standalone containers", path: "/five-safes-tes/executors"},
+        {name: "↳ WfExS orchestrated containers", path: "/five-safes-tes/wfexs-executormodel"},
         {name: "Collecting results", path: "/five-safes-tes/collecting-results"},
         {name: "Five Safes TES messages", path: "/five-safes-tes/5s-tes-messages"}
       ],
@@ -41,11 +43,19 @@ export default {
         {name: "Discovery", path: "/examples-in-five-safes-tes/discovery"},
         {name: "Contingency tables", path: "/examples-in-five-safes-tes/contingency-tables"},
         {name: "Descriptive statistics", path: "/examples-in-five-safes-tes/descriptive-statistics"},
+        {name: "Genomics Use Case", path: "/examples-in-five-safes-tes/genomics-usecase"},
       ],
       collapsible: true
     },
+    // {
+    //   name: "WfExS-backend", 
+    //   path: "/wfexs",
+    //   pages: [
+    //     {name: "WfExS", path: "/wfexs/wfexs-executormodel"},
+    //   ],
+    //   collapsible: true
+    // },
     // {name: "RO-crates", path: "/ro-crates"},
-    // {name: "WfExS", path: "/wfexs"}
   ],
 
   // Content to add to the head of the page, e.g. for a favicon:

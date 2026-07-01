@@ -1,11 +1,15 @@
 ---
 theme: air
-toc: false
 style: entrust-style.css
-title: WfExS backend
+title: WfExS-backend
 ---
-<!--Taken text from RO-crates website for placeholder-->
-# Workflow Execution Service (WfExS)
+
+# Workflow Execution Service (WfExS-backend)
+
+WfExS-backend is a workflow execution orchestrator designed to support secure, reproducible, and portable execution of computational workflows.
+
+Its main goal is to enable **reproducibility of analyses in secure environments**, while simplifying the process for researchers by allowing analyses to be reconstructed and re-executed directly from a Workflow Run RO-Crate (WRROC). From a previous execution description, WfExS can automatically import and stage all the required elements needed to reproduce the analysis of a computational workflow, including workflow definitions, parameters, container images, and input datasets.
+
 
 Workflow Execution Service Backend (WfExS-backend) is a high-level orchestrator to run scientific workflows reproducibly. It acquires workflows, containers and inputs from a distributed scenario in order to prepare their local execution, interfacing with workflow engines to instantiate them. It supports cwltool and Nextflow workflow engines with current efforts to incorporate snakemake and Galaxy. WfExS-backend was initially developed in EOSC-Life as a demonstrator on sensitive data analysis and is now part of the Service Delivery plan of INB/ELIXIR-ES.
 

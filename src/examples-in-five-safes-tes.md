@@ -11,3 +11,5 @@ This site includes examples of how to use 5s-TES to carry out federated analytic
 - **SQL examples**: One application of 5s-TES is to run queries that provide the right summary statistics for your analysis. These examples demonstrate the use of [SQL](https://en.wikipedia.org/wiki/SQL) to make requests to databases held in two, separate TREs.
     - **[Contingency tables](./examples-in-five-safes-tes/contingency-tables)**: building a contingency table using SQL
     - **[Descriptive statistics](./examples-in-five-safes-tes/descriptive-statistics)**: calculating the mean and variance of a continuous variable for a defined cohort
+
+- **[Genomics Use Case](./examples-in-five-safes-tes/genomics-usecase)**
