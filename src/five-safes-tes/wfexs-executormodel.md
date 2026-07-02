@@ -32,12 +32,18 @@ The overall execution flow is illustrated below.
 
 ## Checklist for an analysis 
 
+To execute a workflow analysis using WfExS executor, researchers submit a *TES task* describing the analysis to be reproduced. Rather than defining the workflow execution from scratch, the task references a **Workflow Run RO-Crate (WRROC)** containing the complete description of a previous execution.
+
+The WRROC embeds all the information required to reconstruct the analysis, including the workflow definition, execution parameters, software containers, reference resources, and provenance metadata. The TES task complements this information with execution-specific settings, such as the selected executor and any parameters that are intended to be customised for the new execution.
+
+For each supported workflow, one or more **task templates** should be made available. These templates define which execution parameters can be modified by researchers while preserving the reproducibility of the workflow. For example, users may adjust analysis-specific parameters, such as filtering thresholds or quality cut-offs, whereas changes that fundamentally alter the execution context (such as replacing the reference genome or modifying the workflow definition) should not be permitted.
+
 Before executing a workflow with the WfExS executor, researchers should ensure that:
 
 - A Workflow Run RO-Crate (WRROC) describing the analysis is available.
 - Required datasets and reference resources are accessible within the TRE (or already cached).
 - TES task template of the scenario, describing which parameters can be changed.
-- Any modified input parameters must be compatible with the workflow. Researchers may adjust analysis-specific parameters (e.g. filtering thresholds or quality cut-offs), but changes that alter the execution context, such as replacing the reference genome, modifying workflow definitions, or using incompatible input file formats, may invalidate the execution or compromise reproducibility.
+- Any modified input parameters must be compatible with the workflow. 
 
 Once these requirements are met, WfExS can reconstructs the execution environment and submit the workflow for execution through the TES infrastructure.
  
@@ -45,7 +51,15 @@ Once these requirements are met, WfExS can reconstructs the execution environmen
 ![Architecture wfexs with tes](./wfexs_inputs.png)
 
 
-Minimal TES Task Template:
+The task template contains:
+
+- a reference to a Workflow Run RO-Crate (WRROC) describing the previous analysis;
+- execution-specific information, such as the executor configuration and any parameters that may be customised;
+references to the datasets and resources available within the TRE.
+
+Templates should be provided for each supported workflow so that researchers only need to supply the information that is intended to vary between executions.
+
+Example of minimal TES Task Template:
 
 ```json
 {
@@ -64,8 +78,10 @@ Minimal TES Task Template:
   ]
 }
 
-```
 
+
+
+```
 
 ## Key security considerations 
 
