@@ -67,15 +67,91 @@ Example of minimal TES Task Template:
 {
   "name": "WfExS offline execution",
   "description": "wfexs offline execution (stage)",
+  "inputs": [
+    {
+      "name": "__workflow__",
+      "description": "Workflow Run RO-Crate workflow snapshot (with pre-configured datasets)",
+      "url": "URL:/path/to/WRROC",
+      "path": "/container/wrroc.zip"
+    },
+    {
+      "name": "input:1:fastq"
+      "url": "URL:/path/to/INPUT",
+      "path": "/data/input_1_fastq"
+    },
+  ],
+  "outputs": [
+    {
+      "name": "output-wrroc",
+      "description": "The WRROC which gathered the provenance of the current execution",
+      "path": "/outputs/new-wrroc.zip",
+      "url": "URL:/output/wrroc/path",
+      "type": "FILE"
+    }
+  ],
+  "volumes": [
+    "/shared/",
+    "/outputs/",
+  ],
   "executors": [
     {
-      "image": "ghcr.io/inab/wfexs-backend:1.0.6",
+      "image": "ubuntu:24.04",
+      "command": [
+        "/bin/bash",
+        "-c",
+        "echo 'params:' > /shared/config.wfex.stage && echo '  input:' >> /shared/config.wfex.stage && echo '    c-l-a-s-s: File'  && echo '    preferred-name: input.fastq' && echo '    url: file:///data/input_1_fastq'"
+      ],
+      "workdir": "/shared",
+      "stdout": "/outputs/prepare_params_stdout.log",
+      "stdout": "/outputs/prepare_params_stderr.log",
+      "ignore_error": false
+    },
+    {
+      "image": "ghcr.io/inab/wfexs-backend:1.0.8",
+      "command": [
+        "WfExS-backend",
+        "import",
+        "-R",
+        "/container/wrroc.zip",
+        "-W",
+        "/shared/config.wfex.stage",
+        "-s",
+        "--save-workdir-id",
+        "/shared/workdir_id_stage.txt"        
+      ],
+      "workdir": "/shared",
+      "stdout": "/outputs/import_stdout.log",
+      "stdout": "/outputs/import_stderr.log",
+      "ignore_error": false
+    },
+    {
+      "image": "ghcr.io/inab/wfexs-backend:1.0.8",
       "command": [
         "WfExS-backend",
         "staged-workdir",
         "offline-exec",
-        "/root/WfExS-instance-dirs/workdir_id_stage.txt"
-      ]
+        "/shared/workdir_id_stage.txt"
+      ],
+      "workdir": "/shared",
+      "stdout": "/outputs/exec_stdout.log",
+      "stdout": "/outputs/exec_stderr.log",
+      "ignore_error": false
+    },
+    {
+      "image": "ghcr.io/inab/wfexs-backend:1.0.8",
+      "command": [
+        "WfExS-backend",
+        "staged-workdir",
+        "--workflow",
+        "--outputs",
+        "create-prov-crate",
+        "/shared/workdir_id_stage.txt",
+        "/outputs/new-wrroc.zip"
+      ],
+      "workdir": "/shared",
+      "stdout": "/outputs/prov_crate_stdout.log",
+      "stdout": "/outputs/prov_crate_stderr.log",
+      "ignore_error": false
     }
   ]
 }
