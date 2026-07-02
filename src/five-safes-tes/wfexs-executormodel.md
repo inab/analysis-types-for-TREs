@@ -32,8 +32,10 @@ The overall execution flow is illustrated below.
 
 ## Checklist for an analysis 
 
+Before executing a workflow with the WfExS executor, researchers should ensure that:
+
 - A Workflow Run RO-Crate (WRROC) describing the analysis is available.
-- Required datasets and reference resources are accessible within the TRE.
+- Required datasets and reference resources are accessible within the TRE (or already cached).
 - TES task template of the scenario, describing which parameters can be changed.
 - Any modified input parameters must be compatible with the workflow. Researchers may adjust analysis-specific parameters (e.g. filtering thresholds or quality cut-offs), but changes that alter the execution context, such as replacing the reference genome, modifying workflow definitions, or using incompatible input file formats, may invalidate the execution or compromise reproducibility.
 
@@ -41,6 +43,28 @@ Once these requirements are met, WfExS can reconstructs the execution environmen
  
 
 ![Architecture wfexs with tes](./wfexs_inputs.png)
+
+
+Minimal TES Task Template:
+
+```json
+{
+  "name": "WfExS offline execution",
+  "description": "wfexs offline execution (stage)",
+  "executors": [
+    {
+      "image": "ghcr.io/inab/wfexs-backend:1.0.6",
+      "command": [
+        "WfExS-backend",
+        "staged-workdir",
+        "offline-exec",
+        "/root/WfExS-instance-dirs/workdir_id_stage.txt"
+      ]
+    }
+  ]
+}
+
+```
 
 
 ## Key security considerations 
