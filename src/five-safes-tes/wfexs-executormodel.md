@@ -8,11 +8,11 @@ title: WfExS-backend with GA4GH TES
 
 ## WfExS-backend with GA4GH Task Execution Service (TES) 
 
-WfExS-backend is a workflow execution orchestrator designed to support secure, reproducible, and portable execution of computational workflows.
+[WfExS-backend](https://github.com/inab/WfExS-backend) is a workflow execution orchestrator designed to support secure, reproducible, and portable execution of computational workflows.
 
-It simplifies the reproducibility of computational analyses. Rather than manually configuring workflow definitions, software dependencies, container images, and input datasets, researchers can reproduce a previous analysis directly from a Workflow Run RO-Crate (WRROC). WfExS uses the WRROC to automatically reconstruct the execution environment by staging all the required components, including workflow definitions, execution parameters, container images, and reference datasets.
+It simplifies the reproducibility of computational analyses. Rather than manually configuring workflow definitions, software dependencies, container images, and input datasets, researchers can reproduce a previous analysis directly from a [Workflow Run RO-Crate (WRROC)](https://www.researchobject.org/workflow-run-crate/). WfExS uses contents represented in WRROC standard to automatically reconstruct the execution environment by staging all the required components, including workflow definitions, execution parameters, container images, and reference datasets.
 
-In this implementation, WfExS is integrated with a GA4GH TES deployment using a customised Funnel instance. WfExS itself runs as a container within the TES execution environment, where it prepares and orchestrates the execution of workflow-based analyses.
+In this implementation, WfExS is integrated with a deployment of [Funnel](https://calypr.org/tools/funnel/), a [GA4GH TES](https://www.ga4gh.org/product/task-execution-service-tes/) service implementation. This deployment uses a customised setup, in order to allow nested container executions. WfExS itself runs as a container within the TES execution environment, where it prepares and orchestrates the execution of workflow-based analyses.
 
 
 ### How the WfExS executor works
