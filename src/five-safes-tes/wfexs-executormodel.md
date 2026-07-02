@@ -20,8 +20,8 @@ In this implementation, WfExS is integrated with a deployment of [Funnel](https:
 The execution model is based on a clear separation of responsibilities between orchestration and execution:
 
 - **Funnel (GA4GH TES implementation)** provides the execution environment and manages computational resources.
-- **WfExS-backend** runs as a TES executor, reconstructing the analysis from a WRROC, staging the required resources, and coordinating execution.
-- **Workflow engines (e.g. Nextflow)** interpret and execute computational workflows defined in a portable and reproducible manner.
+- **WfExS-backend** runs as a task being run within TES service, reconstructing the analysis from a WRROC, staging the required resources, and coordinating execution.
+- **Workflow engines (e.g. Nextflow)** are launched by WfExS-backend, interpreting and executing computational workflows defined in a portable and reproducible manner.
 - **Computational workflows [(e.g. nf-core pipeline, Sarek)](../examples-in-five-safes-tes/genomics-usecase)** define the scientific analysis logic executed on compute resources as a series of containerised tasks.
 
 
@@ -29,31 +29,33 @@ The overall execution flow is illustrated below.
 
 ![Architecture diagram WfExS with TES](./wfexs_architecture.png)
 
-
 ## Checklist for an analysis 
 
-To execute a workflow analysis using WfExS executor, researchers submit a *TES task* describing the analysis to be reproduced. Rather than defining the workflow execution from scratch, the task references a **Workflow Run RO-Crate (WRROC)** containing the complete description of a previous execution.
+Researchers have to submit a complex, raw *TES task* message, where at least one of the executors is using WfExS-backend container, in order to execute a workflow analysis. It is highly advisable to use one of the pre-prepared WfExS TES task templates, focused on specific Workflow Run RO-Crate instances.
 
-The WRROC embeds all the information required to reconstruct the analysis, including the workflow definition, execution parameters, software containers, reference resources, and provenance metadata. The TES task complements this information with execution-specific settings, such as the selected executor and any parameters that are intended to be customised for the new execution.
+As existing life sciences workflows usually are able to perform more than one kind of analysis, or the same one but over different organisms, all the details of a previous, successful execution should be gathered in order to increase the reproducibility of the analyses.
 
-For each supported workflow, one or more **task templates** should be made available. These templates define which execution parameters can be modified by researchers while preserving the reproducibility of the workflow. For example, users may adjust analysis-specific parameters, such as filtering thresholds or quality cut-offs, whereas changes that fundamentally alter the execution context (such as replacing the reference genome or modifying the workflow definition) should not be permitted.
+The format of this provenance is Workflow Run RO-Crate. So, the WRROC file associated to that kind of analysis should have captured from that previous, successful execution, both the workflow (either in Nextflow or CWL format), its internal an external dependencies, as well as the default values for the different configuration parameters of the workflow.
 
-Before executing a workflow with the WfExS executor, researchers should ensure that:
+The WfExS TES task template must refer that WRROC, which should be available within the TRE internal storage. If the TRE allows public internet access, the WRROC referenced within the TES task template could be available in a public deposition site, like Zenodo. Also, the creator of the TES task template must describe which are the input parameters expected to be set up, like input files or detection thresholds. This is very important, to avoid unwanted changes in critical parameters of the analysis, like the location of the reference datasets or the kind of analysis. Last, but not the least important, due the complexity of workflows from [nf-core](https://nf-co.re), some preparation and marshalling steps might be needed, in the form of additional executors for the task before the execution itself.
 
-- A Workflow Run RO-Crate (WRROC) describing the analysis is available.
-- Required datasets and reference resources are accessible within the TRE (or already cached).
-- TES task template of the scenario, describing which parameters can be changed.
-- Any modified input parameters must be compatible with the workflow. 
+Although it is uncommon, it could happen that more than one WfExS TES task template exists pointing to the very same WRROC instance. Typical cases would be having hardcoded some bias or threshold parameters, based on internal quality assurance standards, or having more specialised pre-processing machinery, tied to custom, non-standard input formats.
 
-Once these requirements are met, WfExS can reconstructs the execution environment and submit the workflow for execution through the TES infrastructure.
+Before writing, executing a workflow using a TES task message pointing to the WfExS executor, researchers and TRE admins should ensure that:
+
+1. A Workflow Run RO-Crate (WRROC) describing the analysis is available.
+2. Required datasets and reference resources are accessible within the TRE (or already cached).
+3. TES task template of the scenario, describing which parameters can be changed.
+4. Any modified input parameters must be compatible with the workflow. 
+
+Once these requirements are met, one of the executors described within the TES task can direct WfExS to reconstruct the analysis environment with the declared inputs, and submit the whole TES message through TRE infrastructure.
  
 
 ![Architecture wfexs with tes](./wfexs_inputs.png)
 
+A WfExS TES task template must contain:
 
-The task template contains:
-
-- a reference to a Workflow Run RO-Crate (WRROC) describing the previous analysis;
+- a reference to a Workflow Run RO-Crate (WRROC) describing the analysis.
 - execution-specific information, such as the executor configuration and any parameters that may be customised;
 references to the datasets and resources available within the TRE.
 
