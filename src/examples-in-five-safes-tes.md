@@ -12,4 +12,4 @@ This site includes examples of how to use 5s-TES to carry out federated analytic
     - **[Contingency tables](./examples-in-five-safes-tes/contingency-tables)**: building a contingency table using SQL
     - **[Descriptive statistics](./examples-in-five-safes-tes/descriptive-statistics)**: calculating the mean and variance of a continuous variable for a defined cohort
 
-- **[Genomics Use Case](./examples-in-five-safes-tes/genomics-usecase)**
+- **[Genomics Use Case](./examples-in-five-safes-tes/genomics-usecase)**: demonstrates the end-to-end execution of the nf-core Sarek pipeline through the WfExS executor in TES environment, illustrating how researchers can reproduce a previous workflow execution from a Workflow Run RO-Crate (WRROC) and obtain reproducible results with complete provenance.
