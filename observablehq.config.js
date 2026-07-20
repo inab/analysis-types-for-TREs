@@ -1,6 +1,6 @@
 export default {
   // The app’s title; used in the sidebar and webpage titles.
-  title: "Analysis Types For TREs",
+  title: "Federated analysis for researchers",
 
   // The pages and sections in the sidebar. If you don’t specify this option,
   // all pages will be listed in alphabetical order. Listing pages explicitly
@@ -19,9 +19,11 @@ export default {
       name: "Concepts",
       path: "/concepts",
       pages: [
+        {name: "Isolated analysis", path: "/concepts/designing-isolated-analysis"},
         {name: "Get analyses by requirements", path: "/concepts/analysis-breakdown"},
-        {name: "Categorisation of analysis methods", path: "/concepts/Categorisation"}
-      ]
+        {name: "Categorisation of analysis methods", path: "/concepts/Categorisation"},
+      ],
+      collapsible: true
     },
     {
       name: "Five Safes TES",
