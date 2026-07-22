@@ -38,11 +38,11 @@ As existing life sciences workflows usually are able to perform more than one ki
 
 As mentioned in the previous sections, the chosen workflow provenance representation is WRROC. Therefore, the WRROC used for this type of analysis is generated from a previous successful execution and captures the workflow definition (e.g. Nextflow or CWL), its internal and external dependencies, and the default values of the workflow parameters. 
 
-The WfExS TES task template must refer that WRROC, which should be available within the TRE internal storage. If the TRE allows public internet access, the WRROC referenced within the TES task template could be available in a public deposition site, like Zenodo. Also, the creator of the TES task template must describe which are the input parameters expected to be set up, like input files or detection thresholds. This is very important, to avoid unwanted changes in critical parameters of the analysis, like the location of the reference datasets or the kind of analysis. Last, but not the least important, due the complexity of workflows from [nf-core](https://nf-co.re), some preparation and marshalling steps might be needed, in the form of additional executors for the task before the execution itself.
+The WfExS TES task template must refer to that WRROC, which should be available within the TRE's internal storage. If the TRE allows public internet access, the WRROC referenced within the TES task template could be available in a public repository, like Zenodo. Also, the creator of the TES task template must describe which are the input parameters expected to be set up, like input files or detection thresholds. This is very important, to avoid unwanted changes in critical parameters of the analysis, like the location of the reference datasets or the kind of analysis. Last, but not the least important, due to the complexity of workflows from [nf-core](https://nf-co.re), some preparation and marshalling steps might be needed, in the form of additional executors for the task before the execution itself.
 
-Although it is uncommon, it could happen that more than one WfExS TES task template exists pointing to the very same WRROC instance. Typical cases would be having hardcoded some bias or threshold parameters, based on internal quality assurance standards, or having more specialised pre-processing machinery, tied to custom, non-standard input formats.
+Although it is uncommon, it could happen that more than one WfExS TES task template points to the very same WRROC instance. Typical cases would be having some hardcoded bias or threshold parameters, based on internal quality assurance standards, or having more specialised pre-processing machinery, tied to custom, non-standard input formats.
 
-Before writing, executing a workflow using a TES task message pointing to the WfExS executor, researchers and TRE admins should ensure that:
+Before writing and executing a workflow using a TES task message pointing to the WfExS executor, researchers and TRE admins should ensure that:
 
 1. A Workflow Run RO-Crate (WRROC) describing the analysis is available.
 2. Required datasets and reference resources are accessible within the TRE (or already cached).
@@ -176,7 +176,7 @@ Once the workflow has finished executing, the researcher receives:
 ### Exporting workflow results
 
 
-The WfExS executor supports the automatic generation of a WRROC as part of the workflow execution. Its generation is controlled through the TES task submitted by the researcher. When preparing a TES task it can be specified that the execution results should be exported as a WRROC. Then, WfExS automatically generates the WRROC once the workflow has completed successfully, packaging the workflow outputs together with the execution metadata and provenance information.
+The WfExS executor supports the automatic generation of a WRROC as part of the workflow execution. Its generation is controlled through the TES task submitted by the researcher. When preparing a TES task it can be specified that the execution results should be exported as a WRROC. Then WfExS automatically generates the WRROC once the workflow has completed successfully, packaging the workflow outputs together with the execution metadata and provenance information.
 
 The destination directory for the exported WRROC can also be specified in the TES task, allowing researchers to control where the package is written. 
 
