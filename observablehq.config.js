@@ -47,15 +47,8 @@ export default {
       ],
       collapsible: true
     },
-    // {
-    //   name: "WfExS-backend", 
-    //   path: "/wfexs",
-    //   pages: [
-    //     {name: "WfExS", path: "/wfexs/wfexs-executormodel"},
-    //   ],
-    //   collapsible: true
-    // },
-    // {name: "RO-crates", path: "/ro-crates"},
+
+    {name: "RO-crates", path: "/ro-crates"},
   ],
 
   // Content to add to the head of the page, e.g. for a favicon:

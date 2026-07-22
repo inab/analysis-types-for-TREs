@@ -12,7 +12,8 @@ title: WfExS-backend with GA4GH TES
 
 It simplifies the reproducibility of computational analyses. Rather than manually configuring workflow definitions, software dependencies, container images, and input datasets, researchers can reproduce a previous analysis directly from a [Workflow Run RO-Crate (WRROC)](https://www.researchobject.org/workflow-run-crate/). WfExS uses contents represented in WRROC standard to automatically reconstruct the execution environment by staging all the required components, including workflow definitions, execution parameters, container images, and reference datasets.
 
-In this implementation, WfExS is integrated with a deployment of [Funnel](https://calypr.org/tools/funnel/), a [GA4GH TES](https://www.ga4gh.org/product/task-execution-service-tes/) service implementation. This deployment uses a customised setup, in order to allow nested container executions. WfExS itself runs as a container within the TES execution environment, where it prepares and orchestrates the execution of workflow-based analyses.
+In this deployment, WfExS is integrated with an instance of [Funnel](https://calypr.org/tools/funnel/), a [GA4GH TES](https://www.ga4gh.org/product/task-execution-service-tes/) service implementation. This deployment uses a customised setup, in order to allow nested container executions. WfExS v1.0.9 itself runs as a container within the TES execution environment, where it prepares and orchestrates the execution of workflow-based analyses.
+Future developments will allow spawning these inner jobs in the very same or a different TES environment, increasing the technical scalability. 
 
 
 ### How the WfExS executor works
@@ -31,11 +32,11 @@ The overall execution flow is illustrated below.
 
 ## Checklist for an analysis 
 
-Researchers have to submit a complex, raw *TES task* message, where at least one of the executors is using WfExS-backend container, in order to execute a workflow analysis. It is highly advisable to use one of the pre-prepared WfExS TES task templates, focused on specific Workflow Run RO-Crate instances.
+Researchers have to submit a complex, raw *TES task* message, where at least one of the executors is using WfExS-backend container, in order to execute a workflow analysis. It is highly advisable to use one of the pre-prepared WfExS TES task templates, focused on specific WRROC instances.
 
 As existing life sciences workflows usually are able to perform more than one kind of analysis, or the same one but over different organisms, all the details of a previous, successful execution should be gathered in order to increase the reproducibility of the analyses.
 
-The format of this provenance is Workflow Run RO-Crate. So, the WRROC file associated to that kind of analysis should have captured from that previous, successful execution, both the workflow (either in Nextflow or CWL format), its internal an external dependencies, as well as the default values for the different configuration parameters of the workflow.
+As mentioned in the previous sections, the chosen workflow provenance representation is WRROC. Therefore, the WRROC used for this type of analysis is generated from a previous successful execution and captures the workflow definition (e.g. Nextflow or CWL), its internal and external dependencies, and the default values of the workflow parameters. 
 
 The WfExS TES task template must refer that WRROC, which should be available within the TRE internal storage. If the TRE allows public internet access, the WRROC referenced within the TES task template could be available in a public deposition site, like Zenodo. Also, the creator of the TES task template must describe which are the input parameters expected to be set up, like input files or detection thresholds. This is very important, to avoid unwanted changes in critical parameters of the analysis, like the location of the reference datasets or the kind of analysis. Last, but not the least important, due the complexity of workflows from [nf-core](https://nf-co.re), some preparation and marshalling steps might be needed, in the form of additional executors for the task before the execution itself.
 
@@ -61,7 +62,10 @@ references to the datasets and resources available within the TRE.
 
 Templates should be provided for each supported workflow so that researchers only need to supply the information that is intended to vary between executions.
 
-Example of minimal TES Task Template:
+
+<details>
+  <summary>Example of minimal TES Task Template:</summary>
+
 
 ```json
 {
@@ -156,6 +160,10 @@ Example of minimal TES Task Template:
   ]
 }
 ```
+
+</details> 
+
+
 
 ## Provenance and RO-Crate model
 
