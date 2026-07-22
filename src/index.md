@@ -4,10 +4,8 @@ toc: false
 style: entrust-style.css
 ---
 
-<div class="hero">
-  <h1>Federated Analysis for researchers</h1>
-  <h2>Running analysis on private data in different places</h2>
-</div>
+<h1>Federated Analysis for researchers</h1>
+<h2>Running analysis on private data in different places</h2>
 
 ---
 <div class="grid grid-cols-4">
@@ -32,7 +30,7 @@ Jump straight into [some examples](examples-in-five-safes-tes)
   <div class="card">
 
 
-You can read more details on how analyses are [categorised](Categorisation), or use the [dashboard](analysis-breakdown) to see whether your TRE requirements are compatible with different federated analyses.
+You can read more details on how analyses are [categorised](concepts/Categorisation), or use the [dashboard](concepts/analysis-breakdown) to see whether your TRE requirements are compatible with different federated analyses.
   </div>
 </div>
 

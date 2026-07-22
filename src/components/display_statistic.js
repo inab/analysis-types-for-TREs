@@ -2,18 +2,13 @@ import {html} from "npm:htl";
 import * as Inputs from "npm:@observablehq/inputs";
 import {marked} from "marked";
 import markedKatex from "marked-katex-extension";
+import { htmlUnsafe } from "./html-unsafe.js";
 
 const options = {
   throwOnError: false
 };
 
 marked.use(markedKatex(options));
-
-function htmlUnsafe(string) {
-  const template = document.createElement("template");
-  template.innerHTML = string;
-  return template.content.cloneNode(true);
-}
 
 function getSeparabilityColor(sep) {
   const colors = {
