@@ -46,7 +46,12 @@ export default {
       ],
       collapsible: true
     },
-    // {name: "RO-crates", path: "/ro-crates"},
+    {
+      name: "RO-Crate",
+      path: "/ro-crate",
+      pages: [],
+      collapsible: false
+    },
     // {name: "WfExS", path: "/wfexs"}
   ],
 
