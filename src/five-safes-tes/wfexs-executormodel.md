@@ -32,7 +32,7 @@ The overall execution flow is illustrated below.
 
 ## Checklist for an analysis 
 
-Researchers have to submit a complex, raw *TES task* message, where at least one of the executors is using WfExS-backend container, in order to execute a workflow analysis. It is highly advisable to use one of the pre-prepared WfExS TES task templates, focused on specific WRROC instances.
+Researchers have to submit a complex, raw *TES task* message, where at least one of the executors is using a WfExS-backend container, in order to execute a workflow analysis. It is highly advisable to use one of the pre-prepared WfExS TES task templates, focused on specific WRROC instances.
 
 As existing life sciences workflows usually are able to perform more than one kind of analysis, or the same one but over different organisms, all the details of a previous, successful execution should be gathered in order to increase the reproducibility of the analyses.
 
