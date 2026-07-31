@@ -4,7 +4,7 @@ style: ../entrust-style.css
 title: 5s-TES executors
 ---
 
-# Executors
+# Standalone containers executors
 TES tasks run through executors, specified in the `executors` field of a TES message.
 An example TES message could contain
 
