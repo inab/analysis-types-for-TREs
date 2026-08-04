@@ -51,7 +51,7 @@ An example of the `tags` field is:
 ## Use of templates in 5s-TES
 
 
-Workflow analyses executed through WfExS are submitted as TES task messages. To simplify their preparation and ensure reproducibility, TRE operators are expected to provide TES task templates for each supported analysis scenario. 
+Workflow analyses executed through WfExS are submitted as TES task messages to the TRE. To simplify their preparation and ensure reproducibility, TRE operators are expected to provide TES task templates for each supported analysis scenario. 
 
 Each template encapsulates the orchestration steps required to reproduce a previously validated workflow execution. 
 
