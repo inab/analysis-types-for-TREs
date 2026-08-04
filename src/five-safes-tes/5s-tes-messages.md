@@ -183,7 +183,7 @@ During this stage, WfExS reconstructs the workflow execution environment describ
 
 Once the execution environment has been prepared, WfExS performs the workflow execution in offline mode using the staged working directory.
 
-The execution is delegated to the workflow management system specified by the workflow (e.g. Nextflow or CWL), which runs the workflow using the researcher-provided inputs while preserving the execution configuration captured in the selected WRROC. WfExS orchestrates the execution, monitors its progress, and records the metadata required for provenance generation.
+The execution is delegated to the workflow engine specified by the workflow (e.g. Nextflow or CWL), which runs the workflow using the researcher-provided inputs while preserving the execution configuration captured in the selected WRROC. WfExS orchestrates the execution, monitors its progress, and records the metadata required for provenance generation.
 
 3. Exporting workflow results
 
