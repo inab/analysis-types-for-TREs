@@ -36,7 +36,7 @@ However, in 5s-TES, this has been overloaded so that two tags are essential.
 
 A `Project` tag must contain the name of an approved project in the submission layer
 
-A `tres` tag must contain a list of TREs that should run the task, separated by a pipe character (|).
+A `tres` tag must contain a list of TREs that should run the task, separated by a pipe character (|). Therefore, the task is sent to each one of the specified TREs in the list. 
 
 An example of the `tags` field is:
 
@@ -90,11 +90,11 @@ A complete example of a WfExS TES task template is shown below.
   ],
   "outputs": [
     {
-      "name": "output-wrroc",
-      "description": "The WRROC which gathered the provenance of the current execution",
-      "path": "/outputs/new-wrroc.zip",
-      "url": "URL:/output/wrroc/path",
-      "type": "FILE"
+      "name": "output-analysis",
+      "description": "The outputs generated in the current execution",
+      "path": "/outputs",
+      "url": "URL:/outputs/bucket/path",
+      "type": "DIRECTORY"
     }
   ],
   "volumes": [
@@ -111,11 +111,11 @@ A complete example of a WfExS TES task template is shown below.
       ],
       "workdir": "/shared",
       "stdout": "/outputs/prepare_params_stdout.log",
-      "stdout": "/outputs/prepare_params_stderr.log",
+      "stderr": "/outputs/prepare_params_stderr.log",
       "ignore_error": false
     },
     {
-      "image": "ghcr.io/inab/wfexs-backend:1.0.8",
+      "image": "ghcr.io/inab/wfexs-backend:1.0.9",
       "command": [
         "WfExS-backend",
         "import",
@@ -129,11 +129,11 @@ A complete example of a WfExS TES task template is shown below.
       ],
       "workdir": "/shared",
       "stdout": "/outputs/import_stdout.log",
-      "stdout": "/outputs/import_stderr.log",
+      "stderr": "/outputs/import_stderr.log",
       "ignore_error": false
     },
     {
-      "image": "ghcr.io/inab/wfexs-backend:1.0.8",
+      "image": "ghcr.io/inab/wfexs-backend:1.0.9",
       "command": [
         "WfExS-backend",
         "staged-workdir",
@@ -142,28 +142,43 @@ A complete example of a WfExS TES task template is shown below.
       ],
       "workdir": "/shared",
       "stdout": "/outputs/exec_stdout.log",
-      "stdout": "/outputs/exec_stderr.log",
+      "stderr": "/outputs/exec_stderr.log",
       "ignore_error": false
     },
     {
-      "image": "ghcr.io/inab/wfexs-backend:1.0.8",
+      "image": "ghcr.io/inab/wfexs-backend:1.0.9",
       "command": [
         "WfExS-backend",
         "staged-workdir",
-        "--workflow",
-        "--outputs",
+        "--workflow", //"--outputs", "--containers", "--inputs"
         "create-prov-crate",
         "/shared/workdir_id_stage.txt",
         "/outputs/new-wrroc.zip"
       ],
       "workdir": "/shared",
       "stdout": "/outputs/prov_crate_stdout.log",
-      "stdout": "/outputs/prov_crate_stderr.log",
+      "stderr": "/outputs/prov_crate_stderr.log",
       "ignore_error": false
     },  
+    {
+      "image": "ghcr.io/inab/wfexs-backend:1.0.9",
+      "command": [
+        "WfExS-backend",
+        "staged-workdir",
+        "shell",
+        "/shared/workdir_id_stage.txt",
+        "--",
+        "cp", "-dpr", "outputs", "/outputs/analysis_outputs"
+      ],
+      "workdir": "/shared",
+      "stdout": "/outputs/outputs_cp_stdout.log",
+      "stderr": "/outputs/outputs_cp_stderr.log",
+      "ignore_error": false
+    },  
+    
   ],
   "tags": {
-  "Project": "NottinghamDemo",
+  "Project": "EoscEntrustDemo",
   "tres": "Nottingham TRE 02|BSC"
    }
 }
@@ -189,4 +204,4 @@ The execution is delegated to the workflow engine specified by the workflow (e.g
 
 WfExS can automatically generate a WRROC at the end of a successful workflow execution. This behaviour is configured in the TES task, which also specifies the destination where the generated WRROC will be written.
 
-The exported WRROC packages the workflow outputs together with the execution metadata and provenance information, enabling the analysis to be easily shared, archived, and reproduced.
+The exported WRROC packages the workflow (`--workflow`) together with the execution metadata and provenance information. The contents of the generated WRROC can be tailored to the execution scenario. Besides the workflow definition and execution provenance, additional resources can be embedded as payload, such as the workflow outputs (`--outputs`), software containers (`--containers`), and, where permitted by the TRE security policies, the workflow inputs (`--inputs`).

@@ -34,13 +34,22 @@ The overall execution flow is illustrated below.
 
 Before submitting an analysis, researchers should ensure that the required analysis resources and execution environment are available. Most of these are expected to be provided by the TRE.
 
+**0. Declaring TES inputs, outputs and shared volumes**:
+- inputs: define all the inputs resources required to execute the analysis scenario. Including: WRROC describing the analysis, the expected workflow input files and customizable parameters. For consistency, the inpts should follow the naming convention "input:<id>:<name>". 
+
+- outputs: define the files and directories that will be exported after the workflow execution. At a minimum, WfExS templates should export the generated Workflow Run RO-Crate (WRROC) together with the workflow outputs produced by the analysis.
+
+- volmes: shared storage used during execution.
+
+
+
 **1. Select the analysis to reproduce**
 
 Researchers should first identify the analysis scenario they wish to execute from a catalogue of pre-approved analyses, each corresponding to a validated workflow execution (for example, different workflows, organisms, reference datasets, or analysis types).
 
-Each analysis is represented by a WRROC, which captures the complete description of a previously successful anlaysis execution. This includes the workflow definition (e.g. Nextflow or CWL), software dependencies, execution environment, provenance information, and the default workflow parameters required to reproduce the analysis.
+Each analysis scenario is represented by a WRROC, which captures the complete description of a previously successful anlaysis execution. This includes the workflow definition (e.g. Nextflow or CWL), software dependencies, execution environment, provenance information, and the default workflow parameters required to reproduce the analysis.
 
-A single workflow may support multiple analysis scenarios. Consequently, several WRROCs may exist for the same workflow, each describing a different validated analysis. 
+Different analysis scenarios may be based on the very same workflow. Consequently, several WRROCs may exist for the same workflow, each describing a different validated analysis. 
 
 As an example, the [WRROC](https://zenodo.org/records/21134855) used throughout the [genomics use case](../examples-in-five-safes-tes/genomics-usecase) is publicly available through Zenodo.
 
