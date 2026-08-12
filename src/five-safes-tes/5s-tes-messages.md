@@ -168,7 +168,7 @@ A complete example of a WfExS TES task template is shown below.
         "shell",
         "/shared/workdir_id_stage.txt",
         "--",
-        "cp", "-dpr", "outputs", "/outputs/analysis_outputs"
+        "cp", "-dpLr", "outputs", "/outputs/analysis_outputs"
       ],
       "workdir": "/shared",
       "stdout": "/outputs/outputs_cp_stdout.log",
