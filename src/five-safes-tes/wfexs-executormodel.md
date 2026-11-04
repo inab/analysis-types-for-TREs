@@ -35,7 +35,7 @@ The overall execution flow is illustrated below.
 Before submitting an analysis, researchers should ensure that the required analysis resources and execution environment are available. Most of these are expected to be provided by the TRE.
 
 **0. Declaring TES inputs, outputs and shared volumes**:
-- inputs: define all the inputs resources required to execute the analysis scenario. Including: WRROC describing the analysis, the expected workflow input files and customizable parameters. For consistency, the inpts should follow the naming convention "input:<id>:<name>". 
+- inputs: define all the inputs resources required to execute the analysis scenario. Including: WRROC describing the analysis, the expected workflow input files and customizable parameters. For consistency, the inputs should follow the naming convention "input:<id>:<name>". 
 
 - outputs: define the files and directories that will be exported after the workflow execution. At a minimum, WfExS templates should export the generated Workflow Run RO-Crate (WRROC) together with the workflow outputs produced by the analysis.
 
