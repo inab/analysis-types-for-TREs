@@ -39,7 +39,7 @@ Before submitting an analysis, researchers should ensure that the required analy
 
 - outputs: define the files and directories that will be exported after the workflow execution. At a minimum, WfExS templates should export the generated Workflow Run RO-Crate (WRROC) together with the workflow outputs produced by the analysis.
 
-- volmes: shared storage used during execution.
+- volumes: shared storage used during execution.
 
 
 
