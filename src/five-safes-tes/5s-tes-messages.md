@@ -36,7 +36,7 @@ However, in 5s-TES, this has been overloaded so that two tags are essential.
 
 A `Project` tag must contain the name of an approved project in the submission layer
 
-A `tres` tag must contain a list of TREs that should run the task, separated by a pipe character (|). Therefore, the task is sent to each one of the specified TREs in the list. 
+A `tres` tag must contain a list of TREs that should run the task, separated by a pipe character (|). The task is sent to each of the specified TREs. 
 
 An example of the `tags` field is:
 
